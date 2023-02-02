@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello JpoController!{% endblock %}
-
 {% block button %}
-      <button class="bg-blue-500 m-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><a  href="{{ url("jpo_create") }}" >creer une journée porte ouverte</a></button>
+{% if app.user %}
+          <button class="bg-blue-500 m-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><a  href="{{ url("jpo_create") }}" >creer une journée porte ouverte</a></button>
+{% else %}
+          <button class="bg-blue-500 m-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><a  href="{{ url("app_register") }}" >s'inscrire</a></button>
+{% endif %}
 {% endblock %}
 {% block body %}
 <style>
@@ -11,32 +14,25 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-          <a href="#" class="w-[30rem] border-2 border-b-4 border-gray-200 rounded-xl hover:bg-gray-50">
-   {% for jpo in jpos %}
-                 <div class="grid grid-cols-6 p-5 gap-y-2">
 
-                        <!-- Profile Picture -->
-                        <div>
-                               <img src="https://picsum.photos/seed/2/200/200" class="max-w-16 max-h-16 rounded-full" />
-                        </div>
+    <div class="d-block wrap ">
+           {% for jpo in jpos %}
 
-                        <!-- Description -->
-                        <div class="col-span-5 md:col-span-4 ml-4">
-
-                               <p class="text-sky-500 font-bold text-xs">{{jpo.title}}</p>
-
-                               <p class="text-gray-600 font-bold"> {{ jpo.lieu}}</p>
-
-
-                        </div>
-
-
-
-                 </div>
-
-    {% endfor %}
-          </a>
-
-</div>
+               <div class="card mt-3 col-md-6 offset-md-3">
+                   <div class="card-header">
+                       {{ jpo.lieu | upper }} - places disponible(s) {{ jpo.places }}
+                   </div>
+                   <div class="card-body text-center">
+                       <h5 class="card-title">{{ jpo.title }}</h5>
+                       <p class="card-text">venez passez une super journée avec nous...</p>
+                       {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                           {% if not (app.user.jpos()) %}
+                               <p>la </p>
+                           {% endif %}
+                       <a href="{{ path('jpo_suscribe', {'jpo_id': jpo.id }) }}" class="btn btn-primary">Participer</a>
+                       {% endif %}
+                   </div>
+               </div>
+            {% endfor %}
+    </div>
 {% endblock %}

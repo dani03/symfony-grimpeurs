@@ -1,19 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}
+    Inscription
+{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.firstname) }}
-        {{ form_row(registrationForm.lastname) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'mot de passe'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+    <div class="form-row mt-5">
+        <div class="col-md-6 offset-md-3 align-self-center">
+            <div style="border:1px solid black;border-radius:6px;">
+                <div class="card text-center">
+                    <h1 class="card-header">Inscription</h1>
+                    <div class="card-body">
+                        {{ form_start(registrationForm, { attr: { novalidate: 'novalidate' } }) }}
+                        <p>
+                            {{form_label(registrationForm.email, 'Email :')}}
+                            {{form_widget(registrationForm.email)}}
+                            {{form_errors(registrationForm.email)}}
+                        </p>
+                        <p>
+                            {{form_label(registrationForm.firstname, 'Prénom :')}}
+                            {{form_widget(registrationForm.firstname)}}
+                            {{form_errors(registrationForm.firstname)}}
+                        </p>
+                        <p>
+                            {{form_label(registrationForm.lastname, 'Nom :')}}
+                            {{form_widget(registrationForm.lastname)}}
+                            {{form_errors(registrationForm.lastname)}}
+                        </p>
+                        <p>
+                            {{form_label(registrationForm.plainPassword, 'Mot de Passe :')}}
+                            {{form_widget(registrationForm.plainPassword)}}
+                            {{form_errors(registrationForm.plainPassword)}}
+                        </p>
+                        <p>
+                            {{form_label(registrationForm.agreeTerms, 'Terms :')}}
+                            {{form_widget(registrationForm.agreeTerms)}}
+                            {{form_errors(registrationForm.agreeTerms)}}
+                        </p>
+                        <div class="justify-content-center">
+                            <input id="submit_button" type="submit" class="btn btn-primary" value="Envoyer">
+                        </div>
+                        {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

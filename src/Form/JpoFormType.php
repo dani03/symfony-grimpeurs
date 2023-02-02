@@ -20,11 +20,11 @@ class JpoFormType extends AbstractType
                     'class' => 'form-control',
                     'placeholder' => 'entrer le lieu',
                 ),
-                'label' => false
+                'label' => 'lieu'
             ])
             ->add('title', TextType::class, [ "attr" => array(
                 'class' => 'form-control',
-                'placeholder' => 'entrer le lieu',
+                'placeholder' => 'theme de la journée',
             ),
             ])
             ->add('places', IntegerType::class,[
@@ -32,7 +32,7 @@ class JpoFormType extends AbstractType
                     'class' => 'form-control',
                     'placeholder' => 'nombre de place',
                 ),
-                'label' => 'place libres'
+                'label' => 'place disponibles'
             ])
             //->add('created_at')
            // ->add('updated_at')

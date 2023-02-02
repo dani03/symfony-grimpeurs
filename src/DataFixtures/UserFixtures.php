@@ -34,7 +34,7 @@ class UserFixtures extends  Fixture
         $user2 = new User();
         $user2->setEmail("user2@gmail.com");
         $user2->setFirstname("user");
-        $user2->setRoles([]);
+        $user2->setRoles(['ROLE_GOLD']);
         $user2->setLastname("jean paulos");
         $user2->setPoints(0);
         $user2->setPassword('$2y$13$wKu7lN0ngYEE56BviAUtM.FzWUAicewxaXQY.VBd4QdE2Id56CT/2');

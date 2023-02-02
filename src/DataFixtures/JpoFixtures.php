@@ -15,10 +15,12 @@ class JpoFixtures extends  Fixture implements OrderedFixtureInterface
 
        $jpo = new Jpo();
        $jpo->setLieu('paris');
+       $jpo->setTitle("journee 1");
        $jpo->setPlaces(5);
        $jpo->setUser($this->getReference('user_1'));
        $jpo->setCreatedAt(new \DateTimeImmutable());
        $jpo->setUpdatedAt(new \DateTimeImmutable());
+       $jpo->addUser($this->getReference('user_1'));
 
        $manager->persist($jpo);
 
@@ -26,11 +28,12 @@ class JpoFixtures extends  Fixture implements OrderedFixtureInterface
         $jpo2 = new Jpo();
         $jpo2->setLieu('Marseille');
         $jpo2->setPlaces(5);
-
+        $jpo2->setTitle("journee 2");
         $jpo2->setCreatedAt(new \DateTimeImmutable());
         $jpo2->setUpdatedAt(new \DateTimeImmutable());
 
         $jpo2->setUser($this->getReference('user_2'));
+        $jpo2->addUser($this->getReference('user_2'));
 
         $manager->persist($jpo2);
 
