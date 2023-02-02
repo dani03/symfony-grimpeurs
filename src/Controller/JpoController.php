@@ -60,9 +60,8 @@ class JpoController extends AbstractController
     }
 
     #[Route('/jpo/suscribe/{jpo_id}', methods:['GET'], name: 'jpo_suscribe')]
-    public function subscribe(int $jpo_id, UserRepository $userRepository, JpoRepository $jpoRepository) {
-      //  dd($jpo_id, $this->getUser());
-       // $userConnected = $this->getUser();
+    public function subscribe(int $jpo_id, UserRepository $userRepository, JpoRepository $jpoRepository, EntityManagerInterface $entityManager) {
+
         $jpo = $jpoRepository->find($jpo_id);
         $jpos = $jpoRepository->findAll();
         //augmente les points
@@ -70,6 +69,7 @@ class JpoController extends AbstractController
 
         $jpo->addUser($user);
         $user->addJpo($jpo);
+
         $places = $jpo->getPlaces();
         $places--;
         $jpo->setPlaces($places);
@@ -81,10 +81,15 @@ class JpoController extends AbstractController
 
         $user->getPoints() >= 10 ? $user->setRoles(['ROLE_ARGENT']) : null;
 
-        $userRepository->save($user);
-        $jpoRepository->save($jpo);
+        $entityManager->persist($jpo);
+        $entityManager->persist($user);
 
-        return $this->render('jpo/index.html.twig', ["jpos" => $jpos]);
+       /* $userRepository->save($user);
+        $jpoRepository->save($jpo);*/
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_jpo');
 
     }
 
